@@ -75,7 +75,7 @@ public abstract class AbstractAkkaJob implements Runnable {
     if(nextFireDate == null && isSubmittedImmediately() == true) {
       nextInterval = 0;
     } else {
-      nextInterval = cronExpression.getNextInterval(now);
+      nextInterval = cronExpression.getNextValidTimeAfter(now).getTime() - now.getTime();
     }
 
     nextFireDate = DateUtils.addMilliseconds(now, (int) nextInterval);

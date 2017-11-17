@@ -1,8 +1,8 @@
 name := "play-akkajobs"
 
-version := "1.0.1"
+version := "1.1.0"
 
-organization := "com.github.tuxBurner"
+organization := "it.innove.jobs"
 
 resolvers += "Typesafe Releases" at "http://repo.typesafe.com/typesafe/releases/"
 
@@ -15,7 +15,11 @@ libraryDependencies ++= Seq(
    "com.typesafe.play" %% "play-java" % "2.5.12"
 )
 
-publishTo <<= version {
-  case v if v.trim.endsWith("SNAPSHOT") => Some(Resolver.file("file",  new File(Path.userHome.absolutePath+"/.m2/repository")))
-  case _ => Some(Resolver.file("Github Pages",  new File("../tuxBurner.github.io/repo")))
+publishTo :=  {
+  if (isSnapshot.value)
+    Some("Innove Repo" at "http://dev.in9.eu:8081/content/repositories/snp-innove")
+  else
+    Some("Innove Repo" at "http://dev.in9.eu:8081/content/repositories/rel-innove")
 }
+
+credentials += Credentials(Path.userHome / ".ivy2/ivysettings.prop")
